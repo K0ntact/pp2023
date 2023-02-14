@@ -7,7 +7,7 @@ Students are expected to:
 
 
 Student Info
-=========================
+========================
 
 * Student Name: Nguyễn Duy An
 * Student ID: BI12-006
