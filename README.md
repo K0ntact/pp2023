@@ -11,4 +11,4 @@ Student Info
 
 * Student Name: Nguyễn Duy An
 * Student ID: BI12-006
-
+* Group: G1
