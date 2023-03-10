@@ -1,10 +1,3 @@
-# np array:
-#   [
-#       [Std1   course1_marks   course2_marks   course3_marks]
-#       [Std2   course1_marks    course2_marks   course3_marks]
-#       [Std3   course1_marks    course2_marks   course3_marks]
-#   ]
-
 import re
 import math
 import numpy as np
