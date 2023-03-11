@@ -28,5 +28,6 @@ class Course(Info):
             i_mark = math.floor(f_mark)
             self.__marks.append(i_mark)
 
-    def set_marks_TEST(self, mk_lst: list) -> None:
-        self.__marks = mk_lst
+    # TEST
+    # def set_marks_TEST(self, mk_lst: list) -> None:
+    #     self.__marks = mk_lst

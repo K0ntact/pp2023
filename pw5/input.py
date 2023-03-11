@@ -24,7 +24,7 @@ def Input(ms: MarkSheet):
 
             # Add a student
             case 1:
-                # ms.add_student()
+                ms.add_student()    # TEST: comment this to write test data immediately
                 std_file = open("students.txt", "a")
                 for std in ms.get_student_list():
                     std_file.write(f"ID: {std.get_ID()}\n")
@@ -33,7 +33,7 @@ def Input(ms: MarkSheet):
 
             # Add a course
             case 2:
-                # ms.add_course()
+                ms.add_course()     # TEST: comment this to write test data immediately
                 crs_file = open("courses.txt", "a")
                 for crs in ms.get_course_list():
                     crs_file.write(f"ID: {crs.get_ID()}\n")
@@ -64,7 +64,7 @@ def Input(ms: MarkSheet):
                             break
                         continue
 
-                    # course.set_marks(ms.get_student_list())
+                    course.set_marks(ms.get_student_list())     # TEST: comment this to write test data immediately
                     # write marks of course to file
                     mark_file = open("marks.txt", "a")
                     mark_file.write(f"Course: {course.get_name()}\n")
@@ -123,7 +123,7 @@ def Input(ms: MarkSheet):
                     continue
 
                 for course in ms.get_course_list():
-                    if not course.get_marks(): # no marks in course
+                    if not course.get_marks():  # no marks in course
                         print(f"{COLORS.RED}You haven't put any marks in {course.get_name()} course!{COLORS.ENDC}")
                         break
 
