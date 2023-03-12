@@ -70,7 +70,7 @@ def Input(ms: MarkSheet):
                     mark_file.write(f"Course: {course.get_name()}\n")
                     for mark in course.get_marks():
                         index = course.get_marks().index(mark)
-                        mark_file.write(f"      {ms.get_student_list()[index]}: {mark}\n")
+                        mark_file.write(f"      {ms.get_student_list()[index].get_name()}: {mark}\n")
                     mark_file.write("\n")
 
 
