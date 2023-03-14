@@ -58,8 +58,8 @@ import numpy as np
 
 class MarkSheet:
     def __init__(self):
-        self.__student_list: list[Student] = []     # TEST: rand_std()
-        self.__course_list: list[Course] = []       # TEST: [c1, c2, c3, c4]
+        self.__student_list: list[Student] = []    # TEST: replace [] with rand_std()
+        self.__course_list: list[Course] = []       # TEST: replace [] with [c1, c2, c3, c4]
 
     def get_course_list(self) -> list[Course]:
         return self.__course_list
