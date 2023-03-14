@@ -40,10 +40,14 @@ def Input(ms: MarkSheet):
                     print(course.get_name(), end="  ")
                 name = input("\nYour choice: ")
 
+                count = 0
                 for course in ms.get_course_list():
                     if name != course.get_name():
-                        print(f"{COLORS.RED}Course not found!{COLORS.ENDC}")
-                        break
+                        count += 1
+                        if count == len(ms.get_course_list()):
+                            print(f"{COLORS.RED}Course not found!{COLORS.ENDC}")
+                            break
+                        continue
 
                     # course found
                     course.set_marks(ms.get_student_list())
