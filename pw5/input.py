@@ -21,19 +21,19 @@ def Input(ms: MarkSheet):
             case 1:
                 ms.add_student()    # TEST: comment this to write test data immediately
                 std_file = open("students.txt", "a")
-                for std in ms.get_student_list():
-                    std_file.write(f"ID: {std.get_ID()}\n")
-                    std_file.write(f"   Name: {std.get_name()}\n")
-                    std_file.write(f"   DOB: {std.get_dob()}\n\n")
+                std = ms.get_student_list()[-1]
+                std_file.write(f"ID: {std.get_ID()}\n")
+                std_file.write(f"   Name: {std.get_name()}\n")
+                std_file.write(f"   DOB: {std.get_dob()}\n\n")
 
             # Add a course
             case 2:
                 ms.add_course()     # TEST: comment this to write test data immediately
                 crs_file = open("courses.txt", "a")
-                for crs in ms.get_course_list():
-                    crs_file.write(f"ID: {crs.get_ID()}\n")
-                    crs_file.write(f"   Name: {crs.get_name()}\n")
-                    crs_file.write(f"   Credits: {crs.get_credit()}\n\n")
+                crs = ms.get_course_list()[-1]
+                crs_file.write(f"ID: {crs.get_ID()}\n")
+                crs_file.write(f"   Name: {crs.get_name()}\n")
+                crs_file.write(f"   Credits: {crs.get_credit()}\n\n")
 
             # Input marks for a course
             case 3:
