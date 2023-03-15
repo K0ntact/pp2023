@@ -50,7 +50,7 @@ def Output(ms: MarkSheet):
                             break
                         continue
 
-                    if course.get_marks():
+                    if course.get_marks():  # there are marks in course
                         course.display_marks(ms.get_student_list())
                         break
                     else:   # no marks in course

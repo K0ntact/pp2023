@@ -38,7 +38,7 @@ import numpy as np
 # def rand_std() -> list[Student]:
 #     rstd_lst = []
 #     for j in range(0, 30):
-#         rstd = Student(random.choice(ID), random.choice(name), random.choice(dob))
+#         rstd = Student(random.choice(ID), name[j], random.choice(dob))
 #         rstd_lst.append(rstd)
 #     return rstd_lst
 #

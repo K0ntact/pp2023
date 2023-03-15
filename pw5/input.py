@@ -76,7 +76,8 @@ def Input(ms: MarkSheet):
                     # write marks of course to file
                     mark_file = open("marks.txt", "a")
                     mark_file.write(f"Course: {course.get_name()}\n")
+                    index = 0
                     for mark in course.get_marks():
-                        index = course.get_marks().index(mark)
                         mark_file.write(f"\t{ms.get_student_list()[index].get_name()}: {mark}\n")
+                        index += 1
                     mark_file.write("\n")
