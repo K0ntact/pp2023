@@ -16,7 +16,7 @@ def main():
 
     # Extract compressed data
     current_path = os.getcwd()
-    compress_path = current_path + "/students.zip"
+    compress_path = current_path + "/students.dat"
     if not os.path.exists(compress_path):
         print(f"{COLORS.BLUE}Compressed data not found.{COLORS.ENDC}")
     else:
@@ -58,7 +58,7 @@ def main():
     if not os.path.exists(std_path) or not os.path.exists(crs_path) or not os.path.exists(mk_path):
         print(f"{COLORS.BLUE}One or more of the files is missing. There will be no compression!{COLORS.ENDC}")
     else:
-        compressed = zipfile.ZipFile("students.zip", "w", zipfile.ZIP_DEFLATED)
+        compressed = zipfile.ZipFile("students.dat", "w", zipfile.ZIP_DEFLATED)
         compressed.write("students.txt")
         compressed.write("courses.txt")
         compressed.write("marks.txt")
