@@ -1,8 +1,10 @@
-from domains.marksheet import MarkSheet
-from domains.colors import COLORS
+import os
+import zipfile
 import input as ip
 import output as op
-import os, zipfile
+from domains.colors import COLORS
+from domains.marksheet import MarkSheet
+
 """
 TO GENERATE DATA FOR TESTING:
 Search "TEST" in input.py, course.py, marksheet.py and uncomment the code
@@ -10,6 +12,8 @@ Search "TEST" in input.py, course.py, marksheet.py and uncomment the code
 
 
 def main():
+    ms = MarkSheet()
+
     # Extract compressed data
     current_path = os.getcwd()
     compress_path = current_path + "/students.zip"
@@ -19,10 +23,12 @@ def main():
         compressed = zipfile.ZipFile("students.zip", "r")
         compressed.extractall()
         compressed.close()
-        print(f"Files extracted successfully.")
         os.remove(compress_path)
+        ms.load_student_file("students.txt")
+        ms.load_course_file("courses.txt")
+        ms.load_mark_file("marks.txt")
+        print(f"Files loaded successfully.")
 
-    ms = MarkSheet()
     while True:
         print("\nStudent Mark Management System")
         print("-" * 20)

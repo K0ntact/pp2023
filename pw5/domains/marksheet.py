@@ -55,6 +55,8 @@ import numpy as np
 # c4 = Course("n4", "c4", 4)
 # c4.set_marks_TEST(course_4)
 
+def rm_all_ws(text: str) -> str:
+    return "".join(text.split())
 
 class MarkSheet:
     def __init__(self):
@@ -66,6 +68,44 @@ class MarkSheet:
 
     def get_student_list(self) -> list[Student]:
         return self.__student_list
+
+    def load_course_file(self, path: str) -> None:
+        with open(path, "r") as crs_txt:
+            lines = crs_txt.readlines()
+            for line in range(0, len(lines), 4):
+                ID = rm_all_ws(lines[line]).split(":")[1]
+                name = rm_all_ws(lines[line + 1]).split(":")[1]
+                credit = int(lines[line + 2].strip().split(":")[1])
+                new_course = Course(ID, name, credit)
+                self.__course_list.append(new_course)
+
+    def load_student_file(self, path: str):
+        with open(path, "r") as std_txt:
+            lines = std_txt.readlines()
+            for line in range(0, len(lines), 4):
+                ID = rm_all_ws(lines[line]).split(":")[1]
+                name = rm_all_ws(lines[line + 1]).split(":")[1]
+                dob = rm_all_ws(lines[line + 2]).split(":")[1]
+                new_student = Student(ID, name, dob)
+                self.__student_list.append(new_student)
+
+    def load_mark_file(self, path: str):
+        with open(path, "r") as mk_txt:
+            total_std = len(self.__student_list)
+            lines = mk_txt.readlines()
+            for line in range(0, len(lines), total_std + 2):
+                course_name = rm_all_ws(lines[line]).split(":")[1]
+
+                # find the course mentioned in the list
+                course: Course
+                for c in self.__course_list:
+                    if course_name == c.get_name():
+                        course = c
+                        break
+
+                for index in range(1, total_std + 1):
+                    std_mark = int(rm_all_ws(lines[line + index]).split(":")[1])
+                    course.set_marks_now(std_mark)
 
     def add_course(self) -> None:
         name = input("Enter course name: ")
