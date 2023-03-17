@@ -161,11 +161,9 @@ class MarkSheet:
         matrix = np.zeros(shape=(row, col))
         credit_arr = []  # get credits of course into an array for easier working
 
-        i = 0
-        for course in self.__course_list:
+        for i, course in enumerate(self.__course_list):
             credit_arr.append(course.get_credit())
             matrix[i] = course.get_marks()
-            i += 1
 
         for column in range(0, col):
             std_mark = matrix[:, column]  # Get the mark of student [column]
