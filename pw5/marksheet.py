@@ -1,6 +1,6 @@
-from .colors import COLORS
-from .course import Course
-from .student import Student
+from domains.colors import COLORS
+from domains.course import Course
+from domains.student import Student
 import re
 import math
 import numpy as np
@@ -56,8 +56,10 @@ import numpy as np
 # c4 = Course("n4", "c4", 4)
 # c4.set_marks_TEST(course_4)
 
+
 def rm_all_ws(text: str) -> str:
     return "".join(text.split())
+
 
 class MarkSheet:
     def __init__(self):
@@ -133,7 +135,7 @@ class MarkSheet:
             checker = re.search('[0-3][0-9]/[0-1][0-9]/[1-2][0-9[0-9][0-9]', dob)
             if checker is None:
                 print(f"{COLORS.RED}You've typed in the wrong DOB format.{COLORS.ENDC}\nThe DOB should be dd/mm/yyyy\n")
-                ID = input("Enter student's DOB: ")
+                dob = input("Enter student's DOB: ")
             else:
                 break
 
@@ -141,14 +143,15 @@ class MarkSheet:
         self.__student_list.append(new_student)
 
     def list_course(self) -> None:
-        for course in self.__course_list:
-            course.display_info()
-        print("\n")
+        if self.__course_list:
+            for course in self.__course_list:
+                course.display_info()
+        else:
+            print(f"{COLORS.RED}No course found!{COLORS.ENDC}")
 
     def list_student(self) -> None:
         for student in self.__student_list:
             student.display_info()
-        print("\n")
 
     def choose_course(self) -> Course:
         """
@@ -169,7 +172,7 @@ class MarkSheet:
 
     def set_marks_course(self) -> None:
         """
-        Set marks for a course
+        Set marks for a course and write to file
         """
         c = self.choose_course()
 
@@ -177,6 +180,13 @@ class MarkSheet:
             f_mark = float(input(f"Set the score for student {std.get_name()}: "))
             i_mark = math.floor(f_mark)
             c.set_marks(i_mark)
+
+        # write marks of course to file
+        mark_file = open("marks.txt", "a")
+        mark_file.write(f"Course: {c.get_name()}\n")
+        for i, mark in enumerate(c.get_marks()):
+            mark_file.write(f"\t{self.get_student_list()[i].get_name()}: {mark}\n")
+        mark_file.write("\n")
 
     def display_marks_course(self) -> None:
         """

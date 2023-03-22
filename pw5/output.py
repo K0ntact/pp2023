@@ -1,4 +1,4 @@
-from domains.marksheet import MarkSheet
+from marksheet import MarkSheet
 from domains.colors import COLORS
 
 
@@ -12,22 +12,22 @@ def Output(ms: MarkSheet):
         print(f"[{COLORS.YELLOW}4{COLORS.ENDC}] Sort student by GPA")
         print("-"*20)
         print(f"[{COLORS.YELLOW}0{COLORS.ENDC}] Back to main menu")
-        choice = int(input("Your choice: "))
+        choice = input("Your choice: ")
         match choice:
             # Exit
-            case 0:
+            case "0":
                 break
 
             # List all students
-            case 1:
+            case "1":
                 ms.list_student()
 
             # List all courses
-            case 2:
+            case "2":
                 ms.list_course()
 
             # Show all student marks in a course
-            case 3:
+            case "3":
                 if len(ms.get_course_list()) == 0:
                     print(f"{COLORS.RED}You have to add a course first!{COLORS.ENDC}")
                     continue
@@ -36,28 +36,10 @@ def Output(ms: MarkSheet):
                     print(f"{COLORS.RED}You have to add a student first!{COLORS.ENDC}")
                     continue
 
-                print("Available course(s):", end=" ")
-                for course in ms.get_course_list():
-                    print(course.get_name(), end="  ")
-                name = input("\nYour choice: ")
+                ms.display_marks_course()
 
-                count = 0
-                for course in ms.get_course_list():
-                    if name != course.get_name():
-                        count += 1
-                        if count == len(ms.get_course_list()):
-                            print(f"{COLORS.RED}Course not found!{COLORS.ENDC}")
-                            break
-                        continue
-
-                    if course.get_marks():  # there are marks in course
-                        course.display_marks(ms.get_student_list())
-                        break
-                    else:   # no marks in course
-                        print(f"{COLORS.RED}You haven't put any marks in this course!{COLORS.ENDC}")
-                        break
-
-            case 4:
+            # Sort student by GPA
+            case "4":
                 if len(ms.get_course_list()) == 0:
                     print(f"{COLORS.RED}You have to add a course first!{COLORS.ENDC}")
                     continue
@@ -75,3 +57,7 @@ def Output(ms: MarkSheet):
                 std_list = ms.sort_by_gpa()
                 for index in range(0, len(std_list)):
                     print(f"{index + 1}. {std_list[index].get_name()}: {std_list[index].get_gpa()}")
+
+            # Invalid choice
+            case _:
+                print(f"{COLORS.RED}Invalid choice!{COLORS.ENDC}")

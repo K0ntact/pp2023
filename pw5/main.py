@@ -3,7 +3,7 @@ import zipfile
 import input as ip
 import output as op
 from domains.colors import COLORS
-from domains.marksheet import MarkSheet
+from marksheet import MarkSheet
 
 """
 TO GENERATE DATA FOR TESTING:
@@ -36,20 +36,24 @@ def main():
         print(f"[{COLORS.YELLOW}2{COLORS.ENDC}] Print info")
         print("-" * 20)
         print(f"[{COLORS.YELLOW}0{COLORS.ENDC}] Exit")
-        choice = int(input("Your choice: "))
+        choice = input("Your choice: ")
         match choice:
             # Exit
-            case 0:
+            case "0":
                 print("Program terminated")
                 break
 
             # Input
-            case 1:
+            case "1":
                 ip.Input(ms)
 
             # Output
-            case 2:
+            case "2":
                 op.Output(ms)
+
+            # Invalid choice
+            case _:
+                print(f"{COLORS.RED}Invalid choice!{COLORS.ENDC}")
 
     # Compress data
     std_path = current_path + "/students.txt"
