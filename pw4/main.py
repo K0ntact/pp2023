@@ -1,4 +1,4 @@
-from domains.marksheet import MarkSheet
+from marksheet import MarkSheet
 from domains.colors import COLORS
 import input as ip
 import output as op

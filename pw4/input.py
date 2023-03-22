@@ -1,4 +1,4 @@
-from domains.marksheet import MarkSheet
+from marksheet import MarkSheet
 from domains.colors import COLORS
 
 
@@ -35,19 +35,4 @@ def Input(ms: MarkSheet):
                     print(f"{COLORS.RED}You have to add a student first!{COLORS.ENDC}")
                     continue
 
-                print("Available course(s):", end=" ")
-                for course in ms.get_course_list():
-                    print(course.get_name(), end="  ")
-                name = input("\nYour choice: ")
-
-                count = 0
-                for course in ms.get_course_list():
-                    if name != course.get_name():
-                        count += 1
-                        if count == len(ms.get_course_list()):
-                            print(f"{COLORS.RED}Course not found!{COLORS.ENDC}")
-                            break
-                        continue
-
-                    # course found
-                    course.set_marks(ms.get_student_list())
+                ms.set_marks_course()
