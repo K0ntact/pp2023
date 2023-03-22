@@ -38,7 +38,7 @@ class MarkSheet:
             checker = re.search('[0-3][0-9]/[0-1][0-9]/[1-2][0-9[0-9][0-9]', dob)
             if checker is None:
                 print(f"{COLORS.RED}You've typed in the wrong DOB format.{COLORS.ENDC}\nThe DOB should be dd/mm/yyyy\n")
-                ID = input("Enter student's DOB: ")
+                dob = input("Enter student's DOB: ")
             else:
                 break
 

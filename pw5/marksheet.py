@@ -2,6 +2,7 @@ from .colors import COLORS
 from .course import Course
 from .student import Student
 import re
+import math
 import numpy as np
 
 # GENERATE DATA FOR TEST
@@ -148,6 +149,45 @@ class MarkSheet:
         for student in self.__student_list:
             student.display_info()
         print("\n")
+
+    def choose_course(self) -> Course:
+        """
+        List all course name, then ask user to choose one
+        :return: Course object if found
+        """
+
+        while True:
+            print("Available course(s):", end=" ")
+            for course in self.get_course_list():
+                print(course.get_name(), end="  ")
+            name = input("\nYour choice: ")
+
+            for course in self.__course_list:
+                if name == course.get_name():
+                    return course
+            print(f"{COLORS.RED}Course not found!{COLORS.ENDC}")
+
+    def set_marks_course(self) -> None:
+        """
+        Set marks for a course
+        """
+        c = self.choose_course()
+
+        for std in self.__student_list:
+            f_mark = float(input(f"Set the score for student {std.get_name()}: "))
+            i_mark = math.floor(f_mark)
+            c.set_marks(i_mark)
+
+    def display_marks_course(self) -> None:
+        """
+        Display marks of a course
+        """
+        c = self.choose_course()
+
+        if c.get_marks():
+            c.display_marks(self.get_student_list())
+        else:  # no marks in course
+            print(f"{COLORS.RED}You haven't put any marks in this course!{COLORS.ENDC}")
 
     # How the matrix should look like:
     #           std_1       std_2      std_3        std_4
