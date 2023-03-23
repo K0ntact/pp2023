@@ -1,61 +1,11 @@
-from .colors import COLORS
-from .course import Course
-from .student import Student
+from domains.colors import COLORS
+from domains.course import Course
+from domains.student import Student
 import re
+import math
 import pickle
 import numpy as np
 
-
-# GENERATE DATA FOR TEST
-
-# import random
-# name = ["Marshall Yoder", "Grover Miranda", "Myah Alvarado", "Luther Burgess", "Carol Davenport", "Gerald Hobbs",
-#         "Nora Bowman", "Kyan Boone", "Deacon Delacruz", "Ida Arnold", "Omer Payne", "Joshua Rogers", "Conrad Mccoy",
-#         "Tiago Skinner", "Filip Parks", "Leonie Landry", "Anton Savage", "Saskia Dennis", "Stephen Edwards",
-#         "Floyd Cross", "Eileen Mcgee", "Sophie Hess", "Millicent Whitney", "Cohen Stephenson", "Alejandro Richard",
-#         "Roman Chapman", "Lester Benton", "Angus Garner", "Greta Tucker", "Carl Martinez"]
-# ID = []
-# dob = []
-# course_1 = []
-# course_2 = []
-# course_3 = []
-# course_4 = []
-#
-# for i in range(0, 30):
-#     iden = "BI12-0" + str(i)
-#     ID.append(iden)
-#
-#     day = str(random.randint(0, 3)) + str(random.randint(0, 9))
-#     month = str(random.randint(0, 1)) + str(random.randint(0, 9))
-#     year = str(random.randint(1, 2)) + str(random.randint(0, 9)) + str(random.randint(0, 9)) + str(random.randint(0, 9))
-#     date_of_birth = day + "/" + month + "/" + year
-#     dob.append(date_of_birth)
-#
-#     course_1.append(random.randint(1, 20))
-#     course_2.append(random.randint(1, 20))
-#     course_3.append(random.randint(1, 20))
-#     course_4.append(random.randint(1, 20))
-#
-#
-# def rand_std() -> list[Student]:
-#     rstd_lst = []
-#     for j in range(0, 30):
-#         rstd = Student(random.choice(ID), name[j], random.choice(dob))
-#         rstd_lst.append(rstd)
-#     return rstd_lst
-#
-#
-# c1 = Course("n1", "c1", 4)
-# c1.set_marks_TEST(course_1)
-#
-# c2 = Course("n2", "c2", 2)
-# c2.set_marks_TEST(course_2)
-#
-# c3 = Course("n3", "c3", 3)
-# c3.set_marks_TEST(course_3)
-#
-# c4 = Course("n4", "c4", 4)
-# c4.set_marks_TEST(course_4)
 
 def rm_all_ws(text: str) -> str:
     return "".join(text.split())
@@ -63,8 +13,8 @@ def rm_all_ws(text: str) -> str:
 
 class MarkSheet:
     def __init__(self):
-        self.__student_list: list[Student] = []  # TEST: replace [] with rand_std()
-        self.__course_list: list[Course] = []  # TEST: replace [] with [c1, c2, c3, c4]
+        self.__student_list: list[Student] = []
+        self.__course_list: list[Course] = []
 
     def get_course_list(self) -> list[Course]:
         return self.__course_list
@@ -73,6 +23,10 @@ class MarkSheet:
         return self.__student_list
 
     def load_course_file(self, path: str) -> None:
+        """
+        Load the course file and set the course list
+        :param path: Path to the course file
+        """
         with open(path, "rb") as crs_file:
             while True:
                 try:
@@ -82,7 +36,11 @@ class MarkSheet:
                     break
             crs_file.close()
 
-    def load_student_file(self, path: str):
+    def load_student_file(self, path: str) -> None:
+        """
+        Load the student file and set the student list
+        :param path: Path to the student file
+        """
         with open(path, "rb") as std_file:
             while True:
                 try:
@@ -92,7 +50,11 @@ class MarkSheet:
                     break
             std_file.close()
 
-    def load_mark_file(self, path: str):
+    def load_mark_file(self, path: str) -> None:
+        """
+        Load the mark file and set the marks for each course
+        :param path: Path to the mark file
+        """
         with open(path, "rb") as mk_file:
             for course in self.__course_list:
                 loaded = pickle.load(mk_file)
@@ -132,14 +94,58 @@ class MarkSheet:
         self.__student_list.append(new_student)
 
     def list_course(self) -> None:
-        for course in self.__course_list:
-            course.display_info()
-        print("\n")
+        if self.__course_list:
+            for course in self.__course_list:
+                course.display_info()
+        else:
+            print(f"{COLORS.RED}No course found!{COLORS.ENDC}")
 
     def list_student(self) -> None:
         for student in self.__student_list:
             student.display_info()
-        print("\n")
+
+    def choose_course(self) -> Course:
+        """
+        List all course name, then ask user to choose one
+        :return: Course object if found
+        """
+
+        while True:
+            print("Available course(s):", end=" ")
+            for course in self.get_course_list():
+                print(course.get_name(), end="  ")
+            name = input("\nYour choice: ")
+
+            for course in self.__course_list:
+                if name == course.get_name():
+                    return course
+            print(f"{COLORS.RED}Course not found!{COLORS.ENDC}")
+
+    def set_marks_course(self) -> None:
+        """
+        Set marks for a course and write to file
+        """
+        course = self.choose_course()
+
+        for std in self.__student_list:
+            f_mark = float(input(f"Set the score for student {std.get_name()}: "))
+            i_mark = math.floor(f_mark)
+            course.set_marks(i_mark)
+
+        # write marks of course to file
+        mark_file = open("marks.pickle", "ab")
+        pickle.dump(course.get_marks(), mark_file)
+
+    def display_marks_course(self) -> None:
+        """
+        Display marks of a course
+        """
+        course = self.choose_course()
+
+        if course.get_marks():
+            course.display_marks(self.get_student_list())
+        else:  # no marks in course
+            print(f"{COLORS.RED}You haven't put any marks in this course!{COLORS.ENDC}")
 
     # How the matrix should look like:
     #           std_1       std_2      std_3        std_4

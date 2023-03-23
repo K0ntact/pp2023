@@ -28,5 +28,5 @@ class Course(Info):
             std_pos = std_list.index(std)
             print(f"{std.get_name()}: {self.__marks[std_pos]}")
 
-    def set_marks_now(self, mark: int) -> None:
-        self.__marks.append(mark)
+    def set_marks_now(self, mark: int) -> None:     # Why is this the same as set_marks?
+        self.__marks.append(mark)                   # I forgot its purpose
