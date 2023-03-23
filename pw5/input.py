@@ -19,33 +19,23 @@ def Input(ms: MarkSheet):
 
             # Add a student
             case "1":
-                ms.add_student()    # TEST: comment this line
+                ms.add_student()
                 std_file = open("students.txt", "a")
 
-                std = ms.get_student_list()[-1]   # TEST: comment this block
+                std = ms.get_student_list()[-1]
                 std_file.write(f"ID: {std.get_ID()}\n")
                 std_file.write(f"\tName: {std.get_name()}\n")
                 std_file.write(f"\tDOB: {std.get_dob()}\n\n")
 
-                # for std in ms.get_student_list():   # TEST: write all sample student data
-                #     std_file.write(f"ID: {std.get_ID()}\n")
-                #     std_file.write(f"\tName: {std.get_name()}\n")
-                #     std_file.write(f"\tDOB: {std.get_dob()}\n\n")
-
             # Add a course
             case "2":
-                ms.add_course()     # TEST: comment this line
+                ms.add_course()
                 crs_file = open("courses.txt", "a")
 
-                crs = ms.get_course_list()[-1]    # TEST: comment this block
+                crs = ms.get_course_list()[-1]
                 crs_file.write(f"ID: {crs.get_ID()}\n")
                 crs_file.write(f"\tName: {crs.get_name()}\n")
                 crs_file.write(f"\tCredits: {crs.get_credit()}\n\n")
-
-                # for crs in ms.get_course_list():    # TEST: write all sample course data.
-                #     crs_file.write(f"ID: {crs.get_ID()}\n")
-                #     crs_file.write(f"\tName: {crs.get_name()}\n")
-                #     crs_file.write(f"\tCredits: {crs.get_credit()}\n\n")
 
             # Input marks for a course
             case "3":

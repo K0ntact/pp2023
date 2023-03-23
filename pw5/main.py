@@ -5,11 +5,6 @@ import output as op
 from domains.colors import COLORS
 from marksheet import MarkSheet
 
-"""
-TO GENERATE DATA FOR TESTING:
-Search "TEST" in input.py, course.py, marksheet.py and uncomment the code
-"""
-
 
 def main():
     ms = MarkSheet()

@@ -23,7 +23,6 @@ class Course(Info):
         """
         Display marks of a course
         :param std_list: List of Student objects
-        :return:
         """
         for std in std_list:
             std_pos = std_list.index(std)
@@ -31,7 +30,3 @@ class Course(Info):
 
     def set_marks_now(self, mark: int) -> None:
         self.__marks.append(mark)
-
-    # TEST
-    # def set_marks_TEST(self, mk_lst: list) -> None:
-    #     self.__marks = mk_lst
